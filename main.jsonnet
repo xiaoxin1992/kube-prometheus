@@ -55,13 +55,11 @@ local kp =
 {
   ['prometheus-' + name]:
     if name == 'prometheus' then
-      std.prune(
-        kp.prometheus[name] {
-          spec+: {
-            alerting: null,
-          },
+      kp.prometheus[name] {
+        spec+: {
+          alerting:: null,
         }
-      )
+      }
     else
       kp.prometheus[name]
 
