@@ -18,3 +18,8 @@ kubectl wait \
     --namespace=monitoring
 kubectl apply -f manifests/
 ```
+
+### 移除
+```shell
+kubectl delete --ignore-not-found=true -f manifests/ -f manifests/setup
+```
