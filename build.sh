@@ -19,18 +19,4 @@ jsonnet -J vendor -m manifests "${1-main.jsonnet}" | xargs -I{} sh -c 'cat {} | 
 
 # Make sure to remove json files
 find manifests -type f ! -name '*.yaml' -delete
-# mv manifests/kustomization.yaml .
-cat > manifests/kustomization.yaml <<EOF
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
 
-resources:
-EOF
-
-find manifests -name '*.yaml' \
-  ! -name 'kustomization.yaml' \
-  | sed 's#^manifests/#./#' \
-  | sort \
-  | while read -r file; do
-      echo "  - ${file}" >> manifests/kustomization.yaml
-    done
