@@ -24,10 +24,6 @@ local kp =
         namespace: 'monitoring',
         versions: version
       },
-      prometheus+: {
-        name: "k8s",
-        alerting: {}
-      }
     },
     prometheus+:: {
       service+: {
@@ -56,5 +52,22 @@ local kp =
 { ['kube-state-metrics-' + name]: kp.kubeStateMetrics[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.kubeStateMetrics)) } +
 { ['kubernetes-' + name]: kp.kubernetesControlPlane[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.kubernetesControlPlane)) } +
 { ['node-exporter-' + name]: kp.nodeExporter[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.nodeExporter)) } +
-{ ['prometheus-' + name]: kp.prometheus[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.prometheus)) } +
+{
+  ['prometheus-' + name]:
+    if name == 'prometheus' then
+      std.prune(
+        kp.prometheus[name] {
+          spec+: {
+            alerting: null,
+          },
+        }
+      )
+    else
+      kp.prometheus[name]
+
+  for name in std.filter(
+    function(name) name != "networkPolicy",
+    std.objectFields(kp.prometheus)
+  )
+}+
 { ['prometheus-adapter-' + name]: kp.prometheusAdapter[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.prometheusAdapter)) }

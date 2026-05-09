@@ -10,9 +10,6 @@ metadata:
   name: k8s
   namespace: monitoring
 spec:
-  alerting: {}
-  enableFeatures: []
-  externalLabels: {}
   image: quay.io/prometheus/prometheus:v3.11.3
   nodeSelector:
     kubernetes.io/os: linux
@@ -23,24 +20,14 @@ spec:
       app.kubernetes.io/name: prometheus
       app.kubernetes.io/part-of: kube-prometheus
       app.kubernetes.io/version: 3.11.3
-  podMonitorNamespaceSelector: {}
-  podMonitorSelector: {}
-  probeNamespaceSelector: {}
-  probeSelector: {}
   replicas: 2
   resources:
     requests:
       memory: 400Mi
-  ruleNamespaceSelector: {}
-  ruleSelector: {}
-  scrapeConfigNamespaceSelector: {}
-  scrapeConfigSelector: {}
   securityContext:
     fsGroup: 2000
     runAsNonRoot: true
     runAsUser: 1000
   serviceAccountName: prometheus-k8s
   serviceDiscoveryRole: EndpointSlice
-  serviceMonitorNamespaceSelector: {}
-  serviceMonitorSelector: {}
   version: 3.11.3
