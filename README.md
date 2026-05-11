@@ -42,3 +42,7 @@ kubectl apply -f manifests-agent/
 ```shell
 kubectl delete --ignore-not-found=true -f manifests-agent/ -f manifests-agent/setup
 ```
+### 服务端的prometheus需要加参数
+```shell
+./prometheus  --web.enable-remote-write-receiver --storage.tsdb.retention.time=15d
+```
