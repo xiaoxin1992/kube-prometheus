@@ -37,7 +37,7 @@ local kp =
           alerting:: {},
           replicas: 1,
           ruleSelector:: {},
-          remoteWrite: [{url: 'http://remote-write-url.com',}],
+          remoteWrite: [{url: 'http://remote-write-url.com/api/v1/write',}],
           containers+: [
             {
               name: 'prometheus',
