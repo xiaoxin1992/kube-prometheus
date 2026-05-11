@@ -68,4 +68,4 @@ local kp =
     std.objectFields(kp.prometheus)
   )
 }
-// { ['prometheus-adapter-' + name]: kp.prometheusAdapter[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.prometheusAdapter)) }
+{ ['prometheus-adapter-' + name]: kp.prometheusAdapter[name] for name in std.filter((function(name) name != "networkPolicy" ), std.objectFields(kp.prometheusAdapter)) }
