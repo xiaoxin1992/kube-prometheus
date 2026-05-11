@@ -43,7 +43,6 @@ local kp =
               name: 'prometheus',
               args+: [
                 '--config.file=/etc/prometheus/config_out/prometheus.env.yaml',
-                '--storage.agent.path=/prometheus',
                 '--enable-feature=agent',
                 '--web.enable-lifecycle',
               ],
