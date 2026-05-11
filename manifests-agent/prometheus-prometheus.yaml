@@ -16,8 +16,6 @@ spec:
     - --enable-feature=agent
     - --web.enable-lifecycle
     - --storage.tsdb.retention.time=1h
-    - --storage.agent.retention.min-time=1h
-    - --storage.agent.retention.max-time=1h
     name: prometheus
   enableFeatures: []
   externalLabels: {}
