@@ -15,6 +15,9 @@ spec:
     - --config.file=/etc/prometheus/config_out/prometheus.env.yaml
     - --enable-feature=agent
     - --web.enable-lifecycle
+    - --storage.tsdb.retention.time=1h
+    - --storage.agent.retention.min-time=1h
+    - --storage.agent.retention.max-time=1h
     name: prometheus
   enableFeatures: []
   externalLabels: {}
@@ -33,7 +36,7 @@ spec:
   probeNamespaceSelector: {}
   probeSelector: {}
   remoteWrite:
-  - url: http://remote-write-url.com
+  - url: http://remote-write-url.com/api/v1/write
   replicas: 1
   resources:
     requests:
