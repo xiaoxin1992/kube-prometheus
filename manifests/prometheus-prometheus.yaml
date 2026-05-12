@@ -10,6 +10,10 @@ metadata:
   name: k8s
   namespace: monitoring
 spec:
+  containers:
+    args:
+    - --storage.tsdb.retention.time=2h
+    name: prometheus
   enableFeatures: []
   externalLabels: {}
   image: quay.io/prometheus/prometheus:v3.11.3

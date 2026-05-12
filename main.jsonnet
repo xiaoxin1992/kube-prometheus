@@ -35,6 +35,10 @@ local kp =
       prometheus+: {
         spec+: {
           alerting:: {},
+          containers+: {
+            name: 'prometheus',
+            args+: ['--storage.tsdb.retention.time=2h']
+          }
         }
       },
       service+: {
