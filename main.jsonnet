@@ -29,25 +29,34 @@ local kp =
     kubeStateMetrics+: {networkPolicy:: {}, prometheusRule::{}},
     kubernetesControlPlane+: {prometheusRule::{}},
     prometheusAdapter+: {networkPolicy:: {},},
-    prometheus+: {
-      networkPolicy:: {},
-      prometheusRule::{},
-      prometheus+: {
-        spec+: {
-          alerting:: {},
-          containers+: {
-            name: 'prometheus',
-            args+: ['--storage.tsdb.retention.time=2h']
+        prometheus+: {
+          networkPolicy:: {},
+          prometheusRule::{},
+          prometheus+: {
+            spec+: {
+              alerting:: {},
+              containers+: [
+                {
+                  name: 'prometheus',
+                  args+: [
+                    '--config.file=/etc/prometheus/config_out/prometheus.env.yaml',
+                    '--web.enable-lifecycle',
+                    '--storage.tsdb.path=/prometheus',
+                    '--web.config.file=/etc/prometheus/web_config/web-config.yaml',
+                    '--web.route-prefix=/',
+                    '--storage.tsdb.retention.time=2h'
+                  ],
+                },
+              ],
+            },
+          },
+          service+: {
+            spec+: {
+              type: 'NodePort',
+              sessionAffinity: 'None',
+            }
           }
-        }
-      },
-      service+: {
-        spec+: {
-          type: 'NodePort',
-          sessionAffinity: 'None',
-        }
-      }
-    },
+        },
   };
 
 { 'setup/0namespace-namespace': kp.kubePrometheus.namespace } +

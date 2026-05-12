@@ -11,7 +11,12 @@ metadata:
   namespace: monitoring
 spec:
   containers:
-    args:
+  - args:
+    - --config.file=/etc/prometheus/config_out/prometheus.env.yaml
+    - --web.enable-lifecycle
+    - --storage.tsdb.path=/prometheus
+    - --web.config.file=/etc/prometheus/web_config/web-config.yaml
+    - --web.route-prefix=/
     - --storage.tsdb.retention.time=2h
     name: prometheus
   enableFeatures: []
